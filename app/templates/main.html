@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Simple inventory App</title>  
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}"> 
+    <script>
+        function validateForm(x) {
+          var y = document.getElementById(x).value;
+          if (y<=0) {
+            alert("Count should be greater than Zero");
+            return false;
+          }
+        }
+        </script> 
+  
+</head>  
+<body>  
+    <h1>Inventory List</h1>  
+    <div>Add item:  
+        <form name="addForm" action="{{ url_for('add') }}" , onsubmit="return validateForm('add_count')" , method="POST">  
+            <input type="text" name="item">
+            <input type = "number" name = "count" , id ="add_count">
+            <input type="submit" value="Add Item" class="button">  
+        </form>  
+    </div>  
+    <div>Delete item:  
+        <form action="{{ url_for('delete') }}", onsubmit="return validateForm('delete_count')" , method="POST">  
+            <input type="text" name="item">
+            <input type = "number" name = "count" ,id = 'delete_count'>
+            <input type="submit" value="delete Item" class="button">  
+        </form>  
+    </div>
+    <div>  
+        <h2>Inventory Items</h2>  
+        <table>
+            <tr><th>item</th>
+                <th>count</th></tr>
+            {% for item in inventory %}  
+            <tr>
+                <td style="font-size: 15pt" class='mark'>{{ item.item_name }} </td>
+                <td>{{item.count}}</td>
+            </tr>
+            {% endfor %}      
+        
+        </table>  
+        
+    </div>  
+</body>  
+</html>  
